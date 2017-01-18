@@ -12,7 +12,7 @@ const router = express.Router();
 const debug = (body, status) => {
   console.log('!! NEW REQUEST !!')
   console.log("\tReceived a request:", status);
-  console.log("\tReceived data:", body);
+  console.log("\tReceived data:", JSON.stringify(body, null, 2));
 };
 
 router.post('/:status', (req, res) => {
