@@ -15,12 +15,19 @@ const debug = (body, status) => {
   console.log('\tReceived data:', JSON.stringify(body, null, 2));
 };
 
-router.post('/:status', (req, res) => {
+router.post('/:status*', (req, res) => {
   const body = req.body;
+  const status = req.params.status;
   if (req.params.status === '200') {
     res.json(body);
-  } else {
+  } else if (parseInt(status) >= 200 || parseInt(status) <= 600) {
     res.sendStatus(req.params.status);
+  } else {
+    const { params, body, headers } = req;
+    console.log('Params:', params);
+    console.log('Headers:', headers);
+    console.log('Body:', body);
+    res.json({ params, headers, body });
   }
 });
 router.post('/', (req, res) => {
