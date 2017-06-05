@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 9000;
 
 const router = express.Router();
 
@@ -24,10 +24,15 @@ router.post('/:status', (req, res) => {
   }
 });
 router.post('/', (req, res) => {
-  const body = req.body;
-  debug(body, 200);
-  debug(req.headers, 200);
-  res.json(body);
+  const { body, headers } = req;
+  console.log('Headers:', headers);
+  console.log('Body:', body);
+  res.json({ headers, body });
+});
+router.get('/', (req, res) => {
+  res.json({
+    message: 'Echo Server - Up and Running'
+  });
 });
 app.use('/', router);
 
