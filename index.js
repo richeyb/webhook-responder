@@ -34,11 +34,17 @@ router.post('/', (req, res) => {
   const { body, headers } = req;
   console.log('Headers:', headers);
   console.log('Body:', body);
+  console.log('DocumentsInfo:', body.agreement.documentsInfo.documents[0]);
+  console.log('DocumentsInfo:', body.agreement.documentsInfo.participantSetsInfo[0]);
   res.json({ headers, body });
 });
 router.get('/', (req, res) => {
+  console.log(req.headers);
+  const clientId = req.headers['x-adobesign-clientid'];
+  console.log('clientId', clientId);
   res.json({
-    message: 'Echo Server - Up and Running'
+    message: 'Echo Server - Up and Running',
+    xAdobeSignClientId: clientId
   });
 });
 app.use('/', router);
